@@ -1,0 +1,1 @@
+export { ProofOfOwnership } from "./ProofOfOwnership";
