@@ -59,7 +59,7 @@ const PlanSelection = () => {
       {/* Header */}
       <header className="flex items-center justify-between px-12 py-4 border-b border-[#e0e0e0] bg-white">
         <div className="flex items-center">
-          <img className="w-[147px] h-[39px] object-cover" alt="RentYard Logo" src="" />
+         <h2>RentYard Logo</h2>
         </div>
         <Button variant="outline" className="px-6 py-3 rounded-xl font-medium">Save & Exit</Button>
       </header>

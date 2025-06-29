@@ -22,7 +22,7 @@ const fields = [
 export const Summary = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const initialData = location.state?.data || {};   // GET DATA 
+  const initialData = location.state?.data || {};   // GET DATA BY USELOCATION HOOKS
   const [data, setData] = useState(initialData);
   const [visibleFields, setVisibleFields] = useState(fields.map(f => f.key));
 
@@ -66,7 +66,7 @@ export const Summary = () => {
     <div className="relative min-h-screen bg-[#f8f9fa]">
       {/* Header */}
       <header className="flex items-center justify-between px-12 py-4 border-b border-[#e0e0e0] bg-white">
-        <img className="w-[147px] h-[39px] object-cover" alt="RentYard Logo" src="" />
+        <h2>RentYard Logo</h2>
         <Button variant="outline" className="px-6 py-3 rounded-xl font-medium">Save & Exit</Button>
       </header>
       <main className="flex flex-col items-center px-2 py-8">
