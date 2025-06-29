@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { 
-  Home, 
-  Building2, 
-  Building, 
-  Key, 
-  User, 
+import {
+  Home,
+  Building2,
+  Building,
+  Key,
+  User,
   Briefcase,
   Upload,
   ChevronDown,
@@ -21,7 +21,7 @@ export const PropertySelectionFlow = (): JSX.Element => {
   const [selectedPropertyType, setSelectedPropertyType] = useState<PropertyType | null>(null);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
-  
+
   // Form data states
   const [ownershipDoc, setOwnershipDoc] = useState<File | null>(null);
   const [licenseNumber, setLicenseNumber] = useState("");
@@ -91,12 +91,12 @@ export const PropertySelectionFlow = (): JSX.Element => {
     }
   };
 
-  const FileUploadArea = ({ 
-    file, 
-    onFileChange, 
-    label 
-  }: { 
-    file: File | null; 
+  const FileUploadArea = ({
+    file,
+    onFileChange,
+    label
+  }: {
+    file: File | null;
     onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     label: string;
   }) => (
@@ -104,12 +104,11 @@ export const PropertySelectionFlow = (): JSX.Element => {
       <label className="font-body-body-text-1 font-[600] text-[16px] text-[#272b35]">
         {label}
       </label>
-      <div 
-        className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${
-          file 
-            ? "border-[#316eed] bg-[#f8faff]" 
+      <div
+        className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${file
+            ? "border-[#316eed] bg-[#f8faff]"
             : "border-[#e0e0e0] hover:border-[#316eed]"
-        } ${label.includes('*') && !file ? 'border-red-300 bg-red-50' : ''}`}
+          } ${label.includes('*') && !file ? 'border-red-300 bg-red-50' : ''}`}
         onClick={() => document.getElementById(`file-${label}`)?.click()}
       >
         {file ? (
@@ -142,69 +141,29 @@ export const PropertySelectionFlow = (): JSX.Element => {
 
   const isFormValid = () => {
     if (!selectedPropertyType || !selectedRole || !termsAccepted) return false;
-    
+
     switch (selectedRole) {
       case "landlord":
         return !!ownershipDoc;
       case "realtor":
         return licenseNumber.trim() !== "" && !!realtorDoc && !!realtorAgreement;
       case "management":
-        return companyName.trim() !== "" && 
-               companyIdentifier.trim() !== "" && 
-               jobTitle.trim() !== "" && 
-               !!managementAgreement &&
-               country.trim() !== "" &&
-               streetAddress.trim() !== "" &&
-               phoneNumber.trim() !== "" &&
-               contactEmail.trim() !== "" &&
-               city.trim() !== "" &&
-               state.trim() !== "" &&
-               zipCode.trim() !== "";
+        return companyName.trim() !== "" &&
+          companyIdentifier.trim() !== "" &&
+          jobTitle.trim() !== "" &&
+          !!managementAgreement &&
+          country.trim() !== "" &&
+          streetAddress.trim() !== "" &&
+          phoneNumber.trim() !== "" &&
+          contactEmail.trim() !== "" &&
+          city.trim() !== "" &&
+          state.trim() !== "" &&
+          zipCode.trim() !== "";
       default:
         return false;
     }
   };
 
-  // Helper functions to check specific field validity
-  const getFieldValidationStatus = () => {
-    if (!selectedRole) return {};
-    
-    switch (selectedRole) {
-      case "landlord":
-        return {
-          ownershipDoc: !!ownershipDoc
-        };
-      case "realtor":
-        return {
-          licenseNumber: licenseNumber.trim() !== "",
-          realtorDoc: !!realtorDoc,
-          realtorAgreement: !!realtorAgreement
-        };
-      case "management":
-        return {
-          companyName: companyName.trim() !== "",
-          companyIdentifier: companyIdentifier.trim() !== "",
-          jobTitle: jobTitle.trim() !== "",
-          managementAgreement: !!managementAgreement,
-          country: country.trim() !== "",
-          streetAddress: streetAddress.trim() !== "",
-          phoneNumber: phoneNumber.trim() !== "",
-          contactEmail: contactEmail.trim() !== "",
-          city: city.trim() !== "",
-          state: state.trim() !== "",
-          zipCode: zipCode.trim() !== ""
-        };
-      default:
-        return {};
-    }
-  };
-
-  const getMissingFields = () => {
-    const validationStatus = getFieldValidationStatus();
-    return Object.entries(validationStatus)
-      .filter(([_, isValid]) => !isValid)
-      .map(([field]) => field);
-  };
 
   const renderRoleSpecificForm = () => {
     switch (selectedRole) {
@@ -240,9 +199,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   value={licenseNumber}
                   onChange={(e) => setLicenseNumber(e.target.value)}
                   placeholder="000000000000"
-                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${
-                    licenseNumber.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                  }`}
+                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${licenseNumber.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                    }`}
                 />
                 {licenseNumber.trim() === "" && (
                   <p className="text-red-500 text-xs">This field is required</p>
@@ -279,9 +237,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   placeholder="Runyan trade center"
-                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${
-                    companyName.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                  }`}
+                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${companyName.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                    }`}
                 />
                 {companyName.trim() === "" && (
                   <p className="text-red-500 text-xs">This field is required</p>
@@ -296,9 +253,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   value={companyIdentifier}
                   onChange={(e) => setCompanyIdentifier(e.target.value)}
                   placeholder="Name"
-                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${
-                    companyIdentifier.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                  }`}
+                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${companyIdentifier.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                    }`}
                 />
                 {companyIdentifier.trim() === "" && (
                   <p className="text-red-500 text-xs">This field is required</p>
@@ -313,9 +269,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   value={jobTitle}
                   onChange={(e) => setJobTitle(e.target.value)}
                   placeholder="Manager"
-                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${
-                    jobTitle.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                  }`}
+                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${jobTitle.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                    }`}
                 />
                 {jobTitle.trim() === "" && (
                   <p className="text-red-500 text-xs">This field is required</p>
@@ -336,9 +291,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   <select
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none appearance-none bg-white ${
-                      country.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none appearance-none bg-white ${country.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                      }`}
                   >
                     <option value="">Choose country</option>
                     <option value="US">United States</option>
@@ -360,9 +314,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   value={streetAddress}
                   onChange={(e) => setStreetAddress(e.target.value)}
                   placeholder="111 Austin Ave"
-                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${
-                    streetAddress.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                  }`}
+                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${streetAddress.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                    }`}
                 />
                 {streetAddress.trim() === "" && (
                   <p className="text-red-500 text-xs">This field is required</p>
@@ -394,9 +347,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     placeholder="+880"
-                    className={`flex-1 px-4 py-3 border rounded-r-xl focus:border-[#316eed] focus:outline-none ${
-                      phoneNumber.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                    }`}
+                    className={`flex-1 px-4 py-3 border rounded-r-xl focus:border-[#316eed] focus:outline-none ${phoneNumber.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                      }`}
                   />
                 </div>
                 {phoneNumber.trim() === "" && (
@@ -414,9 +366,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                   placeholder="majarul2025@gmail.com"
-                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${
-                    contactEmail.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                  }`}
+                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${contactEmail.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                    }`}
                 />
                 {contactEmail.trim() === "" && (
                   <p className="text-red-500 text-xs">This field is required</p>
@@ -431,9 +382,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder="Dallas"
-                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${
-                    city.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                  }`}
+                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${city.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                    }`}
                 />
                 {city.trim() === "" && (
                   <p className="text-red-500 text-xs">This field is required</p>
@@ -447,9 +397,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   <select
                     value={state}
                     onChange={(e) => setState(e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none appearance-none bg-white ${
-                      state.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none appearance-none bg-white ${state.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                      }`}
                   >
                     <option value="">Choose state</option>
                     <option value="TX">Texas</option>
@@ -471,9 +420,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
                   value={zipCode}
                   onChange={(e) => setZipCode(e.target.value)}
                   placeholder="75061"
-                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${
-                    zipCode.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
-                  }`}
+                  className={`px-4 py-3 border rounded-xl focus:border-[#316eed] focus:outline-none ${zipCode.trim() === "" ? "border-red-300 bg-red-50" : "border-[#e0e0e0]"
+                    }`}
                 />
                 {zipCode.trim() === "" && (
                   <p className="text-red-500 text-xs">This field is required</p>
@@ -494,11 +442,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
     <div className="relative min-h-screen bg-white">
       {/* Header */}
       <header className="flex items-center justify-between px-20 py-4 border-b border-[#e0e0e0]">
-        <img
-          className="w-[147.28px] h-[38.78px] object-cover"
-          alt="RentYard Logo"
-          src="/image-4.png"
-        />
+
+        <h2>RentYard Logo</h2>
         <Button variant="outline" className="px-6 py-3 rounded-xl">
           Exit
         </Button>
@@ -516,9 +461,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
             {propertyTypes.map((property) => (
               <Card
                 key={property.id}
-                className={`flex-1 border border-solid border-[#e0e0e0] rounded-xl cursor-pointer hover:border-[#316eed] transition-colors ${
-                  selectedPropertyType === property.id ? "border-[#316eed] bg-[#f8faff]" : ""
-                }`}
+                className={`flex-1 border border-solid border-[#e0e0e0] rounded-xl cursor-pointer hover:border-[#316eed] transition-colors ${selectedPropertyType === property.id ? "border-[#316eed] bg-[#f8faff]" : ""
+                  }`}
                 onClick={() => setSelectedPropertyType(property.id)}
               >
                 <CardContent className="p-5">
@@ -551,9 +495,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
             {roles.map((role) => (
               <Card
                 key={role.id}
-                className={`flex-1 border border-solid border-[#e0e0e0] rounded-xl cursor-pointer hover:border-[#316eed] transition-colors ${
-                  selectedRole === role.id ? "border-[#316eed] bg-[#f8faff]" : ""
-                }`}
+                className={`flex-1 border border-solid border-[#e0e0e0] rounded-xl cursor-pointer hover:border-[#316eed] transition-colors ${selectedRole === role.id ? "border-[#316eed] bg-[#f8faff]" : ""
+                  }`}
                 onClick={() => setSelectedRole(role.id)}
               >
                 <CardContent className="p-5">
@@ -589,8 +532,8 @@ export const PropertySelectionFlow = (): JSX.Element => {
               onChange={(e) => setTermsAccepted(e.target.checked)}
               className="mt-1 w-4 h-4 text-[#316eed] border-[#e0e0e0] rounded focus:ring-[#316eed]"
             />
-            <label 
-              htmlFor="terms" 
+            <label
+              htmlFor="terms"
               className="font-body-text-subtitle-caption-subtitle-2 font-[500] text-[14px] text-[#272b35] cursor-pointer"
             >
               Accept RentYard property adding terms & condition

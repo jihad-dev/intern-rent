@@ -22,7 +22,7 @@ const fields = [
 export const Summary = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const initialData = location.state?.data || {};
+  const initialData = location.state?.data || {};   // GET DATA 
   const [data, setData] = useState(initialData);
   const [visibleFields, setVisibleFields] = useState(fields.map(f => f.key));
 

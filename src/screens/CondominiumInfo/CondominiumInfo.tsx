@@ -331,7 +331,7 @@ const RentReminderModal: React.FC<RentReminderModalProps> = ({ open, onClose, on
             <div className="relative">
               <input name="reminderDate" value={form.reminderDate} onChange={handleChange} className="w-full border rounded px-3 h-12 pr-10 focus:outline-none" placeholder="25th Every month" />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2" stroke="currentColor" fill="none"/><path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2" stroke="currentColor" fill="none"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2" stroke="currentColor" fill="none" /><path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2" stroke="currentColor" fill="none" /></svg>
               </span>
             </div>
           </div>
@@ -340,7 +340,7 @@ const RentReminderModal: React.FC<RentReminderModalProps> = ({ open, onClose, on
             <div className="relative">
               <input name="dueDate" value={form.dueDate} onChange={handleChange} className="w-full border rounded px-3 h-12 pr-10 focus:outline-none" placeholder="5th Every month" />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2" stroke="currentColor" fill="none"/><path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2" stroke="currentColor" fill="none"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2" stroke="currentColor" fill="none" /><path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2" stroke="currentColor" fill="none" /></svg>
               </span>
             </div>
           </div>
@@ -845,6 +845,7 @@ const Modal: React.FC<ModalProps> = ({ open, onClose, onSave, label, value, fiel
   if (!open) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+      {/* DEFAULT MODAL FORM */}
       <div className="bg-white p-6 rounded-xl w-full max-w-md shadow-lg">
         <h2 className="mb-4 text-lg font-semibold">Add {label}</h2>
         <input
@@ -951,39 +952,21 @@ export const CondominiumInfo = () => {
     // Check required fields
     const requiredFields = fields.filter(f => f.required);
     const missingRequiredFields = requiredFields.filter(f => !data[f.key] || data[f.key].trim() === "");
-    
+
     // Check if cover photo is uploaded (required)
     if (!coverPhoto) {
       return false;
     }
-    
+
     return missingRequiredFields.length === 0;
   };
 
-  const getMissingFields = () => {
-    const missingFields: string[] = [];
-    
-    // Check required form fields
-    const requiredFields = fields.filter(f => f.required);
-    requiredFields.forEach(f => {
-      if (!data[f.key] || data[f.key].trim() === "") {
-        missingFields.push(f.label);
-      }
-    });
-    
-    // Check cover photo
-    if (!coverPhoto) {
-      missingFields.push("Cover photo");
-    }
-    
-    return missingFields;
-  };
 
   return (
     <div className="relative min-h-screen bg-[#f8f9fa]">
       {/* Header */}
       <header className="flex items-center justify-between px-12 py-4 border-b border-[#e0e0e0] bg-white">
-        <img className="w-[147px] h-[39px] object-cover" alt="RentYard Logo" src="" />
+        <h3>RentYard Logo</h3>
         <Button variant="outline" className="px-6 py-3 rounded-xl font-medium">Save & Exit</Button>
       </header>
       <main className="flex flex-col items-center px-2 py-8">
@@ -992,11 +975,10 @@ export const CondominiumInfo = () => {
             <h2 className="font-bold text-xl mb-4">Condominiums information</h2>
             <div className="grid grid-cols-2 gap-x-6 gap-y-3 mb-6">
               {leftFields.map((f, idx) => (
-                <div key={f.key} className={`flex items-center border rounded-lg px-4 py-3 bg-white mb-2 ${
-                  f.required && (!data[f.key] || data[f.key].trim() === "") 
-                    ? "border-red-300 bg-red-50" 
-                    : "border-[#e0e0e0]"
-                }`}>
+                <div key={f.key} className={`flex items-center border rounded-lg px-4 py-3 bg-white mb-2 ${f.required && (!data[f.key] || data[f.key].trim() === "")
+                  ? "border-red-300 bg-red-50"
+                  : "border-[#e0e0e0]"
+                  }`}>
                   <div className="flex-1">
                     <span className="font-medium text-[#272b35]">
                       {f.label}
@@ -1020,11 +1002,10 @@ export const CondominiumInfo = () => {
                 </div>
               ))}
               {rightFields.map((f, idx) => (
-                <div key={f.key} className={`flex items-center border rounded-lg px-4 py-3 bg-white mb-2 ${
-                  f.required && (!data[f.key] || data[f.key].trim() === "") 
-                    ? "border-red-300 bg-red-50" 
-                    : "border-[#e0e0e0]"
-                }`}>
+                <div key={f.key} className={`flex items-center border rounded-lg px-4 py-3 bg-white mb-2 ${f.required && (!data[f.key] || data[f.key].trim() === "")
+                  ? "border-red-300 bg-red-50"
+                  : "border-[#e0e0e0]"
+                  }`}>
                   <div className="flex-1">
                     <span className="font-medium text-[#272b35]">
                       {f.label}
@@ -1056,11 +1037,10 @@ export const CondominiumInfo = () => {
               </div>
               <div className="flex gap-2 mb-2">
                 {/* Cover photo */}
-                <div className={`border-2 border-dashed rounded-lg w-32 h-32 flex flex-col items-center justify-center text-center cursor-pointer relative ${
-                  !coverPhoto 
-                    ? "border-red-300 bg-red-50" 
-                    : "border-[#316eed] bg-[#f8faff]"
-                }`} onClick={() => coverInputRef.current?.click()}>
+                <div className={`border-2 border-dashed rounded-lg w-32 h-32 flex flex-col items-center justify-center text-center cursor-pointer relative ${!coverPhoto
+                  ? "border-red-300 bg-red-50"
+                  : "border-[#316eed] bg-[#f8faff]"
+                  }`} onClick={() => coverInputRef.current?.click()}>
                   {coverPhoto ? (
                     <>
                       <img src={URL.createObjectURL(coverPhoto)} alt="cover" className="w-full h-full object-cover rounded-lg" />
@@ -1071,7 +1051,7 @@ export const CondominiumInfo = () => {
                   ) : (
                     <>
                       <span className="text-2xl">+</span>
-                      <span className="text-xs mt-1 text-gray-500">Upload cover photo<br/>(jpg, png only)</span>
+                      <span className="text-xs mt-1 text-gray-500">Upload cover photo<br />(jpg, png only)</span>
                     </>
                   )}
                   <input ref={coverInputRef} type="file" accept="image/png,image/jpeg" className="hidden" onChange={handleCoverPhoto} />
@@ -1137,9 +1117,8 @@ export const CondominiumInfo = () => {
       <footer className="fixed bottom-0 left-0 right-0 flex items-center justify-between px-12 py-6 bg-white border-t z-10">
         <Button variant="link" className="text-[#272b35] underline p-0 h-auto font-medium">Back</Button>
         <Button
-          className={`px-8 py-3 rounded-xl text-white font-semibold text-lg ${
-            !isFormValid() ? "opacity-[0.32] bg-gray-400 cursor-not-allowed" : "bg-[#316eed]"
-          }`}
+          className={`px-8 py-3 rounded-xl text-white font-semibold text-lg ${!isFormValid() ? "opacity-[0.32] bg-gray-400 cursor-not-allowed" : "bg-[#316eed]"
+            }`}
           disabled={!isFormValid()}
           onClick={() => {
             if (isFormValid()) {

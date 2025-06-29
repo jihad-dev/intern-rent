@@ -1,1 +1,0 @@
-export { SelectPropertyType } from "./SelectPropertyType";
